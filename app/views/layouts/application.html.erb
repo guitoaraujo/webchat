@@ -54,17 +54,37 @@
 
     <div class="fluid-container" style="margin-top: 70px;">
       <div class="row">
-        <div class="col-sm-2" style="position: fixed; top: 70px; left: 0;">
+        <div class="col-sm-2" id="sidebar">
           <% if user_signed_in? %>
-            <h5>Chatrooms</h5>
-            <ul>
+            <h5>My Chatrooms<i class="material-icons md-36">group</i></h5>
+            <ul class="list-group">
               <% current_user.chatrooms.each do |chatroom| %>
-                <li><%= link_to chatroom.name, chatroom, data: { behavior: "chatroom-link", chatroom_id: chatroom.id } %></li>
+                <li class="list-group-item"><%= link_to chatroom.name, chatroom, data: { behavior: "chatroom-link", chatroom_id: chatroom.id } %></li>
+              <% end %>
+            </ul>
+
+            <h5>Users<i class="material-icons md-36">person_pin</i></h5>
+            <ul class="list-group">
+              <% ordered_users.each do |user| %>
+
+                <% if user.online? %>
+                  <li class="list-group-item">
+                    <i class="material-icons">wifi</i>
+                    <%= link_to user.name, chatroom_users_user_chat_create_path(user: user.id) %>
+                  </li>
+
+                <% else %>
+                  <li class="list-group-item">
+                    <i class="material-icons"></i>
+                    <%= link_to user.name, chatroom_users_user_chat_create_path(user: user.id) %>
+                  </li>
+
+                <% end %>
               <% end %>
             </ul>
           <% end %>
         </div>
-        <div class="col-sm-2 col-sm-offset-2">
+        <div class="col-sm-9 col-sm-offset-2">
           <%= yield %>
         </div>
       </div>

@@ -18,6 +18,12 @@ gem 'devise'
 gem 'devise-bootstrapped'
 gem 'jquery-rails'
 gem 'redis'
+gem 'faker'
+gem 'material_icons'
+
+group :production do
+	gem 'pg'
+end
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

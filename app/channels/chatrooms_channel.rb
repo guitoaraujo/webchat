@@ -8,4 +8,10 @@ class ChatroomsChannel < ApplicationCable::Channel
   def unsubscribed
     stop_all_streams
   end
+  
+  def send_message (data)
+    @chatroom = Chatroom.find(data['chatroom_id'])
+    message   = @chatroom.messages.create(content: data['content'], user: current_user)
+    SendMessageJob.perform_later(message)
+  end
 end
