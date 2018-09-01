@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   
   get 'chatroom_users/user_chat_create'
   
-  mount ActionCable.server => '/cable'
+  #mount ActionCable.server => '/cable'
 	
   root 'chatrooms#index'
 end
